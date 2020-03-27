@@ -1,0 +1,144 @@
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <windows.h>
+using namespace std;
+class Professions
+{
+	string name;
+	float salary;
+	char *prof_environment;
+	unsigned char work_hours;
+	int vacation_long;
+	public:
+	Professions()
+	{
+	    name = "Имя не определено";
+		salary=0;
+		prof_environment = "The empty string";
+		work_hours = '0';
+		vacation_long = 0;
+	}
+	Professions(string Name, float Salary, int Vacation_Long)
+	{
+		name = Name;
+		salary = Salary;
+		prof_environment = "The empty string";
+		work_hours = '0';
+		vacation_long = Vacation_Long;
+	}
+	void Print()
+	{
+	    cout << "Профессия:" << setw(41) << name << endl << endl;
+	    cout << "Средняя заработная плата составляет:" << setw(14) << salary << " рублей" << endl << endl;
+	    cout << "Профессиональная среда:" << setw(37) << prof_environment << endl << endl;
+	    cout << "Продолжительность рабочего дня:" << setw(14) << work_hours << endl << endl;
+	    cout << "Продолжительность отпуска:" << setw(20) << vacation_long;
+            switch (vacation_long%10)
+            {
+                case 1: cout << " день" << endl << endl; break;
+                case 2: cout << " дня" << endl << endl; break;
+                case 3: cout << " дня" << endl << endl; break;
+                case 4: cout << " дня" << endl << endl; break;
+                default: cout << " дней" << endl << endl;
+            }
+	    cout << "\n\n\n";
+	}
+	void File_Print()
+	{
+	    char *path_out = "Файл для вывода значений.txt";
+	    ofstream fout;
+	    fout.open(path_out);
+	    fout << "Профессия:" << setw(41) << name << "\n\n";
+	    fout << "Средняя заработная плата составляет:" << setw(14) << salary << " рублей\n\n";
+	    fout << "Профессиональная среда:" << setw(37) << prof_environment << "\n\n";
+	    fout << "Продолжительность рабочего дня:" << setw(14) << work_hours << "\n\n";
+	    fout << "Продолжительность отпуска:" << setw(20) << vacation_long;
+            switch (vacation_long%10)
+            {
+                case 1: fout << " день" << "\n\n"; break;
+                case 2: fout << " дня" << "\n\n"; break;
+                case 3: fout << " дня" << "\n\n"; break;
+                case 4: fout << " дня" << "\n\n"; break;
+                default: fout << " дней" << "\n\n";
+            }
+	    cout << "\n\n\n";
+        if (!fout.is_open())
+            cout << "Ошибка вывода в файл!!!" << endl;
+        else
+            cout << "Данные успешно выведены в файл " << path_out << endl;
+        fout.close();
+	}
+	void File_Read()
+	{
+	    char *path_in = "Файл для ввода значений.txt";
+	    ifstream fin;
+	    fin.open(path_in);
+	    /*char ch;
+        while(fin.get(ch))
+            cout << ch;*/
+        string str;
+        while (!fin.eof())
+        {
+            str = "";
+            getline(fin, str);
+            cout << str << endl;
+        }
+	    if (!fin.is_open())
+            cout << "Ошибка ввода из файла!!!" << endl;
+        else
+            cout << "\n\n" << "Данные успешно введены из файла " << path_in << endl;
+	    fin.close();
+	}
+	/*string getName()
+	{
+	    return name;
+	}
+	void setName(char Name[30])
+	{
+	    name = Name;
+	}
+	float getSalary()
+	{
+	    return salary;
+	}
+	void setSalary(float Salary)
+	{
+	    salary = Salary;
+	}
+	char *getProf_Environment()
+	{
+	    return prof_environment;
+	}
+	void setProf_Environment(char Prof_Environment[40])
+	{
+	    prof_environment = Prof_Environment;
+	}
+	int getVacation_Long()
+	{
+	    return vacation_long;
+	}
+	void setVacation_Long(int Vacation_Long)
+	{
+	    vacation_long = Vacation_Long;
+	}
+	unsigned char getWork_Hours()
+	{
+	    return work_hours;
+	}
+	void setWork_Hours(unsigned char Work_Hours)
+	{
+	    work_hours = Work_Hours;
+	}*/
+};
+
+int main ()
+{
+    system ("chcp 1251 > NUL");
+	Professions Teacher("Учитель", 50000, 41);
+	Teacher.Print();
+	Teacher.File_Read();
+	Teacher.File_Print();
+	return 0;
+}
